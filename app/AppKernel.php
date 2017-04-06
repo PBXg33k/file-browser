@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
             new AppBundle\AppBundle(),
 //            new \KleijnWeb\SwaggerBundle\KleijnWebSwaggerBundle(),
+            new Pbxg33k\FileBrowserBundle\Pbxg33kFileBrowserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
