@@ -83,3 +83,12 @@ oneup_flysystem:
         lewd_g:
             adapter: lewd_adapter_g
             mount: local_g
+
+pbxg33k_file_browser:
+    mount_manager: "@oneup_flysystem.mount_manager"
+    filesystem: "%davfs.filesystems%"
+    filters:
+        extension_filter:
+            adapter: "ExtensionFilter"
+            enabled: "%davfs.filter_files%"
+            options: "%davfs.filtered_extensions%"

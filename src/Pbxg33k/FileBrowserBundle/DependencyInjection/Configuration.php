@@ -20,6 +20,23 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('pbxg33k_file_browser');
 
+        $rootNode
+            ->children()
+                ->scalarNode('mount_manager')->isRequired()->end()
+                ->arrayNode('filesystem')
+                    ->prototype('scalar')->end()
+                ->end()
+                ->arrayNode('filters')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('adapter')->end()
+                            ->booleanNode('enabled')->defaultFalse()->end()
+                            ->arrayNode('options')->prototype('scalar')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.

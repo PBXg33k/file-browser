@@ -2,3 +2,6 @@ services:
 #    pbxg33k_file_browser.example:
 #        class: Pbxg33k\FileBrowserBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    pbxg33k_file_browser:
+        class: Pbxg33k\FileBrowserBundle\Service\FileBrowser
+        arguments: [ "@oneup_flysystem.mount_manager" ]
