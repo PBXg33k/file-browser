@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Oneup\FlysystemBundle\OneupFlysystemBundle(),
             new AppBundle\AppBundle(),
+//            new \KleijnWeb\SwaggerBundle\KleijnWebSwaggerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

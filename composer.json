@@ -16,6 +16,12 @@
             "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
         ]
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kleijnweb/swagger-bundle.git"
+        }
+    ],
     "require": {
         "php": ">=5.3.9",
         "doctrine/doctrine-bundle": "~1.4",
@@ -32,7 +38,8 @@
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/swiftmailer-bundle": "~2.3,>=2.3.10",
         "symfony/symfony": "2.8.*",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "^1.0||^2.0",
+        "kleijnweb/swagger-bundle": "3.x-dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

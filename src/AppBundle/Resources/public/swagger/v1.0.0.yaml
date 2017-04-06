@@ -1,0 +1,452 @@
+swagger: '2.0'
+info:
+  description: This is an early API for a service offering file browsing
+  version: "0.0.4"
+  title: File Browser API
+  # put the contact info for your development or API team
+  contact:
+    email: development@oguzhanuysal.eu
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# all paths will be relative to the basePath specified
+# basePath: /v1
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+- name: trusted users
+  description: Operations available to trusted users
+schemes:
+- https
+paths:
+  /:
+    get:
+      summary: Mount overview
+      description: |
+        Get a list of mounts which are available for browser.
+      responses:
+        200:
+          description: An array of mounts
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Mount'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /{mount}:
+    head:
+      summary: test if mount can be opened
+      parameters:
+      - name: mount
+        in: path
+        type: string
+        description: unique identifier for mount
+        required: true
+      responses:
+        200:
+          description: empty content
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized. Request must be authenticated
+        403:
+          description: not allowed
+        404:
+          description: directory not found
+        451:
+          description: Unavailable For Legal Reasons. In other words, most lickely removed due to DMCA Take-down notice. In such case response will contain link to notice. (RFC 7725)
+          schema:
+            $ref: '#/definitions/LegalBlock'
+        500:
+          description: internal server error
+    get:
+      summary: test if mount can be opened
+      parameters:
+      - name: mount
+        in: path
+        type: string
+        description: unique identifier for mount
+        required: true
+      responses:
+        200:
+          description: list of directories and files
+          schema:
+            $ref: '#/definitions/Directory'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized. Request must be authenticated
+        403:
+          description: not allowed
+        404:
+          description: directory not found
+        451:
+          description: Unavailable For Legal Reasons. In other words, most lickely removed due to DMCA Take-down notice. In such case response will contain link to notice. (RFC 7725)
+          schema:
+            $ref: '#/definitions/LegalBlock'
+        500:
+          description: internal server error
+  /{mount}/{directoryPath}:
+    head:
+      summary: test if content of a directory can be retrieved
+      parameters:
+      - name: mount
+        in: path
+        type: string
+        description: unique identifier for mount
+        required: true
+      - name: directoryPath
+        in: path
+        type: string
+        description: Path of the intended directory
+        required: true
+      - name: limit
+        description: maximum numbers of records to return
+        in: query
+        type: integer
+        format: int32
+      - name: offset
+        description: offset from which point records are returned
+        in: query
+        type: integer
+        format: int32
+      responses:
+        200:
+          description: empty content
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized. Request must be authenticated
+        403:
+          description: not allowed
+        404:
+          description: directory not found
+        451:
+          description: Unavailable For Legal Reasons. In other words, most lickely removed due to DMCA Take-down notice. In such case response will contain link to notice. (RFC 7725)
+          schema:
+            $ref: '#/definitions/LegalBlock'
+        500:
+          description: internal server error
+    get:
+      summary: retrieve content of a directory
+      operationId: controller.browse
+      produces:
+      - application/json
+      parameters:
+      - name: directoryPath
+        in: path
+        type: string
+        description: Path of the intended directory
+        required: true
+      - in: query
+        name: limit
+        description: maximum numbers of records to return
+        type: integer
+        format: int32
+      - in: query
+        name: offset
+        description: offset from which point records are returned
+        type: integer
+        format: int32
+      responses:
+        200:
+          description: content of a directory
+          schema:
+            $ref: '#/definitions/Directory'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized. Request must be authenticated
+        403:
+          description: not allowed
+        404:
+          description: directory not found
+        451:
+          description: Unavailable For Legal Reasons. In other words, most lickely removed due to DMCA Take-down notice. In such case response will contain link to notice. (RFC 7725)
+          schema:
+            $ref: '#/definitions/LegalBlock'
+        500:
+          description: internal server error
+    post:
+      summary: create directory or upload file
+      tags:
+      - trusted users
+      parameters:
+      - name: directoryPath
+        in: path
+        type: string
+        description: Path of the intended directory
+        required: true
+      responses:
+        200:
+          description: Creation or upload success
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized. Request must be authenticated
+        403:
+          description: Forbidden. Authenticated user does not have the required permissions to upload to directory
+        409:
+          description: Conflict. The target path already exists, use PUT to update existing files
+        500:
+          description: Internal server error
+  /{mount}/{path}/download:
+    head:
+      summary: test if the given file can be downloaded
+      parameters:
+      - name: mount
+        in: path
+        type: string
+        description: unique identifier for mount
+        required: true
+      - name: path
+        in: path
+        type: string
+        description: path of the file
+        required: true
+      responses:
+        200:
+          description: Empty content
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized. Request must be authenticated
+        403:
+          description: not allowed
+        404:
+          description: file not found
+        415:
+          description: Unsupported Media Type. (for future use)
+        451:
+          description: Unavailable For Legal Reasons. In other words, most lickely removed due to DMCA Take-down notice. In such case response will contain link to notice. (RFC 7725)
+          schema:
+            $ref: '#/definitions/LegalBlock'
+        500:
+          description: internal server error
+    get:
+      summary: download file
+      operationId: controller.download
+      parameters:
+      - name: mount
+        in: path
+        type: string
+        description: unique identifier for mount
+        required: true
+      - name: path
+        in: path
+        type: string
+        description: path of the file
+        required: true
+      responses:
+        200:
+          description: download
+          schema:
+            type: file
+        403:
+          description: not allowed
+        404:
+          description: file not found
+        451:
+          description: Unavailable For Legal Reasons. In other words, most lickely removed due to DMCA Take-down notice. In such case response will contain link to notice. (RFC 7725)
+          schema:
+            $ref: '#/definitions/LegalBlock'
+        500:
+          description: internal server error
+  /{mount}/{path}/zip:
+    head:
+      description: Test if directory can be compressed
+      parameters:
+      - name: mount
+        in: path
+        type: string
+        description: unique identifier for mount
+        required: true
+      - name: path
+        in: path
+        type: string
+        description: path of directory
+        required: true
+      - name: container
+        in: query
+        description: container format
+        type: string
+        enum: [ "zip", "7z", "rar" ]
+      responses:
+        200:
+          description: empty content
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized. Request must be authenticated
+        403:
+          description: not allowed
+        404:
+          description: file not found
+        451:
+          description: Unavailable For Legal Reasons. In other words, most lickely removed due to DMCA Take-down notice. In such case response will contain link to notice. (RFC 7725)
+          schema:
+            $ref: '#/definitions/LegalBlock'
+        500:
+          description: internal server error
+    get:
+      summary: compress directory and download
+      operationId: controller.zipDownload
+      parameters:
+      - name: mount
+        in: path
+        type: string
+        description: unique identifier for mount
+        required: true
+      - name: path
+        in: path
+        type: string
+        description: path of directory
+        required: true
+      - name: container
+        in: query
+        description: container format
+        type: string
+        enum: [ "zip", "7z", "rar" ]
+      responses:
+        200:
+          description: download
+          schema:
+            type: file
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized. Request must be authenticated
+        403:
+          description: not allowed
+        404:
+          description: file not found
+        451:
+          description: Unavailable For Legal Reasons. In other words, most lickely removed due to DMCA Take-down notice. In such case response will contain link to notice. (RFC 7725)
+          schema:
+            $ref: '#/definitions/LegalBlock'
+        500:
+          description: internal server error
+definitions:
+  Mount:
+    type: object
+    properties:
+      mount_id: 
+        type: string
+        description: Unique identifier for mount
+      name:
+        type: string
+        description: Human friendly representation for mount
+      directories:
+        type: array
+        items:
+          $ref: '#/definitions/Directory'
+      files:
+        type: array
+        items:
+          $ref: '#/definitions/File'
+  Directory:
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        example: foo
+      path:
+        type: string
+        example: /mount_1/absolute/path/to/directory/foo
+        description: path to directory relative to root (/)
+      archivable:
+        type: boolean
+        description: Indicates if the directory can be archived for download
+      files:
+        type: integer
+        format: int32
+        description: total number of files in current directory
+      directories:
+        type: integer
+        format: int32
+        description: total number of directories in current directory
+      modification_date:
+        type: string
+        format: int32
+        example: 2016-08-29T09:12:33.001Z
+      created_date:
+        type: string
+        format: int32
+        example: 2016-08-29T09:12:33.001Z
+      file_list:
+        type: array
+        items:
+          $ref: '#/definitions/File'
+      directory_list:
+        type: array
+        items:
+          $ref: '#/definitions/Directory'
+  File:
+    required:
+    - name
+    properties:
+      name:
+        type: string
+      path:
+        type: string
+        example: /mount_1/absolute/path/to/file/foo.bar
+        description: path to file relative to root (/)
+      size:
+        type: integer
+      modification_date:
+        type: string
+        format: int32
+        example: 2016-08-29T09:12:33.001Z
+      created_date:
+        type: string
+        format: int32
+        example: 2016-08-29T09:12:33.001Z
+      thumbnail:
+        type: string
+        format: url
+      downloadable:
+        type: boolean
+  LegalBlock:
+    properties:
+      path:
+        type: string
+      reference:
+        type: string
+        description: Reference to something that provides more background information, for example link to law
+      blocked_by:
+        type: string
+        description: Source of entity requestion blockade
+      reason:
+        type: string
+        description: Reason why resource may not be serviced
+      region:
+        type: array
+        items:
+          type: string
+        description: List of area(s) which are blocked.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+        
+# Added by API Auto Mocking Plugin
+# host: music.browse.api.poweredby.moe
+# basePath: /api
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /PBXg33k/FileBrowser

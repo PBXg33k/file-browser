@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "df307edde2556f70bac617b25890e754",
+    "content-hash": "cd3966f86de6aadbac21e7529b14e86e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1039,6 +1039,152 @@
             "time": "2014-01-12T16:20:24+00:00"
         },
         {
+            "name": "justinrainbow/json-schema",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "6b2a33e6a768f96bdc2ead5600af0822eed17d67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/6b2a33e6a768f96bdc2ead5600af0822eed17d67",
+                "reference": "6b2a33e6a768f96bdc2ead5600af0822eed17d67",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "json-schema/json-schema-test-suite": "1.2.0",
+                "phpdocumentor/phpdocumentor": "~2",
+                "phpunit/phpunit": "^4.8.22"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "time": "2016-06-02T10:59:52+00:00"
+        },
+        {
+            "name": "kleijnweb/swagger-bundle",
+            "version": "3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kleijnweb/swagger-bundle.git",
+                "reference": "4a710c6814f991d220c62ec5e16a9ce80bfec96c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kleijnweb/swagger-bundle/zipball/4a710c6814f991d220c62ec5e16a9ce80bfec96c",
+                "reference": "4a710c6814f991d220c62ec5e16a9ce80bfec96c",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/collections": "^1.3",
+                "justinrainbow/json-schema": ">=1.4.2 <1.5 || ^2.0",
+                "nocarrier/hal": "^0.9.12",
+                "php": ">=5.4.0",
+                "psr/log": "^1.0",
+                "ramsey/vnderror": "^3.0.0",
+                "symfony/config": ">=2.6.0",
+                "symfony/dependency-injection": ">=2.6.0",
+                "symfony/event-dispatcher": ">=2.6.0",
+                "symfony/filesystem": ">=2.6.0",
+                "symfony/finder": ">=2.6.0",
+                "symfony/http-foundation": ">=2.6.0",
+                "symfony/http-kernel": ">=2.6.0",
+                "symfony/property-access": ">=2.6.0",
+                "symfony/routing": ">=2.6.0",
+                "symfony/yaml": ">=2.6.0"
+            },
+            "require-dev": {
+                "doctrine/cache": "^1.5.0",
+                "fr3d/swagger-assertions": "^0.2.0",
+                "jms/serializer": "1.0",
+                "mikey179/vfsstream": "^1.5",
+                "phpoption/phpoption": ">=1.1.0",
+                "phpunit/phpunit": ">=4.1.0",
+                "satooshi/php-coveralls": "<1.0",
+                "sensio/generator-bundle": "~2.3",
+                "symfony/browser-kit": ">=2.6.0",
+                "symfony/console": ">=2.6.0",
+                "symfony/form": ">=2.6.0",
+                "symfony/framework-bundle": ">=2.6.0",
+                "symfony/monolog-bundle": ">=2.6.0",
+                "symfony/serializer": ">=2.6.0",
+                "twig/twig": "^1.21",
+                "zendframework/zend-stdlib": ">=2.4.0"
+            },
+            "suggest": {
+                "doctrine/annotations": "Object de- serialization annotation support",
+                "doctrine/cache": "Caching parsed and resolved Swagger documents",
+                "jms/serializer": "Object de- serialization using JMS\\Serializer",
+                "kleijnweb/jwt-bundle": "JWT authentication support",
+                "symfony/serializer": "Object de- serialization using Symfony Serializer Component"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "KleijnWeb\\SwaggerBundle\\": "src"
+                }
+            },
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "John Kleijn",
+                    "email": "john@kleijnweb.nl",
+                    "homepage": "http://www.kleijnweb.nl"
+                }
+            ],
+            "description": "Makes your Swagger definition into a routing and validation spec",
+            "support": {
+                "source": "https://github.com/kleijnweb/swagger-bundle/tree/3.x",
+                "issues": "https://github.com/kleijnweb/swagger-bundle/issues"
+            },
+            "time": "2017-03-30 14:23:05"
+        },
+        {
             "name": "kriswallsmith/assetic",
             "version": "v1.4.0",
             "source": {
@@ -1523,6 +1669,54 @@
             "time": "2017-03-13T07:08:03+00:00"
         },
         {
+            "name": "nocarrier/hal",
+            "version": "0.9.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blongden/hal.git",
+                "reference": "08ffddf52733633403e0f4ca6e949b0c7cc186f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blongden/hal/zipball/08ffddf52733633403e0f4ca6e949b0c7cc186f8",
+                "reference": "08ffddf52733633403e0f4ca6e949b0c7cc186f8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Nocarrier": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Longden",
+                    "email": "ben@nocarrier.co.uk",
+                    "homepage": "http://nocarrier.co.uk"
+                }
+            ],
+            "description": "application/hal builder / formatter for PHP 5.3+",
+            "homepage": "https://github.com/blongden/hal",
+            "keywords": [
+                "hal",
+                "hypermedia",
+                "json",
+                "rest",
+                "xml"
+            ],
+            "time": "2015-09-07T11:14:47+00:00"
+        },
+        {
             "name": "oneup/flysystem-bundle",
             "version": "1.12.0",
             "source": {
@@ -1843,6 +2037,57 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "ramsey/vnderror",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/vnderror.git",
+                "reference": "6a35cf2d31eb161b3bbec035c908763d4a56c0f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/vnderror/zipball/6a35cf2d31eb161b3bbec035c908763d4a56c0f8",
+                "reference": "6a35cf2d31eb161b3bbec035c908763d4a56c0f8",
+                "shasum": ""
+            },
+            "require": {
+                "nocarrier/hal": "~0.9",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "jakub-onderka/php-parallel-lint": "0.8.*",
+                "phpunit/phpunit": "~4.5",
+                "satooshi/php-coveralls": "0.6.*",
+                "squizlabs/php_codesniffer": "~2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ramsey\\VndError\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Ramsey",
+                    "homepage": "http://benramsey.com"
+                }
+            ],
+            "description": "application/vnd.error builder / formatter for PHP 5.3+",
+            "homepage": "https://github.com/ramsey/vnderror",
+            "keywords": [
+                "error",
+                "hypermedia",
+                "json",
+                "rest",
+                "xml"
+            ],
+            "time": "2015-03-20T17:41:04+00:00"
         },
         {
             "name": "sabre/dav",
@@ -3496,7 +3741,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kleijnweb/swagger-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
